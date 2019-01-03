@@ -25,7 +25,7 @@ do
     # current unixepoch with millisec
     startTime=$(date +%s.%3N)
     # get rx bytes, tx bytees
-    traffic=$(cmd)
+    traffic=$($cmd)
 
     set -- $traffic
     rx=$2

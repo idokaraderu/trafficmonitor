@@ -12,12 +12,11 @@ import subprocess
 import time
 
 args = sys.argv
-
-podname   = args[0]
-namespace = args[1]
-container = args[2]
-nic       = args[3]
-interval  = int(args[4])
+podname   = args[1]
+namespace = args[2]
+container = args[3]
+nic       = args[4]
+interval  = int(args[5])
 
 if not container:
     cmd = 'kubectl -n {0} exec {1} -c {2} cat /proc/net/dev'.format(namespace, podname, container)

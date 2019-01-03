@@ -14,16 +14,16 @@ import time
 args = sys.argv
 podname   = args[1]
 namespace = args[2]
-container = args[3]
+container = args[3] if args[3] is not 'none' else ''
 nic       = args[4]
 interval  = int(args[5])
 limit     = int(args[6]) if len(args) >= 6 else -1
 count     = 0
 
-if not container:
-    cmd = 'kubectl -n {0} exec {1} -c {2} cat /proc/net/dev'.format(namespace, podname, container)
+if container:
+    cmd = f'kubectl -n {namespace} exec {podname} -c {container} cat /proc/net/dev'
 else:
-    cmd = 'kubectl -n {0} exec {1} cat /proc/net/dev'.format(namespace, podname)
+    cmd = f'kubectl -n {namespace} exec {podname} cat /proc/net/dev'
 
 cmd = 'cat /proc/net/dev'.format(nic)
 cmd = cmd.split()
@@ -55,7 +55,7 @@ while(True):
     diff_rx = rx - old_rx
     diff_tx = tx - old_tx
 
-    print(startTime, diff_rx, diff_tx, sep=',')
+    print("%.3f,%d,%d" % (startTime, diff_rx, diff_tx), sep=',')
 
     old_rx = rx
     old_tx = tx

@@ -17,6 +17,8 @@ namespace = args[2]
 container = args[3]
 nic       = args[4]
 interval  = int(args[5])
+limit     = int(args[6]) if len(args) >= 6 else -1
+count     = 0
 
 if not container:
     cmd = 'kubectl -n {0} exec {1} -c {2} cat /proc/net/dev'.format(namespace, podname, container)
@@ -57,6 +59,10 @@ while(True):
 
     old_rx = rx
     old_tx = tx
+
+    if limit > 0 and count > limit:
+        break
+    count += 1
 
     endTime = datetime.datetime.now().timestamp()
     sleepTime = interval - (endTime - startTime)

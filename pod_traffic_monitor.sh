@@ -5,10 +5,10 @@
 # get rx and tx bytes by /proc/net/dev from kubernetes pod
 #----------------------------------------
 
-nic=${1:-eth0}
+podname=$1
 namespace=${2:-default}
-podname=$3
-container=${4:-""}
+container=${3:-""}
+nic=${4:-eth0}
 interval=${5:-1}
 
 if [ -n "$container" ]; then
@@ -44,7 +44,7 @@ do
 
     old_rx=$rx
     old_tx=$tx
-    
+
     endTime=$(date +%s.%3N)
     sleepMilliSec=$(echo "$interval + $startTime - $endTime" | bc)
     sleep $sleepMilliSec

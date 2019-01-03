@@ -6,7 +6,7 @@
 #----------------------------------------
 
 nic=${1:-eth0}
-namespace=$2
+namespace=${2:-default}
 podname=$3
 container=${4:-""}
 interval=${5:-1}

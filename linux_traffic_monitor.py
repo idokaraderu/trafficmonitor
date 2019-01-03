@@ -46,7 +46,7 @@ while(True):
     diff_rx = rx - old_rx
     diff_tx = tx - old_tx
 
-    print(startTime, rx, tx, sep=',')
+    print(startTime, diff_rx, diff_tx, sep=',')
 
     old_rx = rx
     old_tx = tx
